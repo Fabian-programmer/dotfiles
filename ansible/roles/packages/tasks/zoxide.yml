@@ -1,0 +1,9 @@
+- name: Install zoxide
+  community.general.cargo:
+    name: zoxide
+
+- name: Source zoxide
+  blockinfile:
+    path: ~/.bashrc
+    block: |
+      eval "$(zoxide init bash)"

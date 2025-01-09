@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+function have {
+  command -v "$1" &>/dev/null
+}
+
+# install ansible
+have ansible || (sudo apt-add-repository ppa:ansible/ansible && sudo apt update && sudo apt install ansible && ansible-galaxy collection install community.general)
+
+# run ansible
+ansible-playbook -i hosts ./wsl2_ubuntu-22.04.yml

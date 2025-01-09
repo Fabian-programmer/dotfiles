@@ -1,0 +1,37 @@
+- name: Install packages with apt
+  apt:
+    name:
+      - build-essential
+      - xclip
+  become: true
+
+# remove very old nodejs version and install a new one with snap
+- name: Remove apt packages
+  apt:
+    name: nodejs 
+    state: absent
+  become: true
+
+# snap has newer versions of the packages
+- name: Install packages with snap
+  community.general.snap:
+    name:
+      - cmake
+      - nvim
+      - node
+      - htop
+    classic: true
+  become: true
+
+- include_tasks: rust.yml
+
+# cargo has latest versions of the packages
+- name: Install packages with cargo
+  community.general.cargo:
+    name: 
+      - ripgrep
+      - fd-find
+
+- include_tasks: lazygit.yml
+- include_tasks: fzf.yml
+- include_tasks: zoxide.yml

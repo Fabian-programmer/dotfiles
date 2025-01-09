@@ -1,0 +1,16 @@
+- name: Check if ble.sh is installed
+  shell: command -v ble-update
+  register: blesh_exists
+  ignore_errors: yes
+
+- name: Install ble.sh
+  when: blesh_exists is failed
+  ansible.builtin.shell: |
+    git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git &&
+    make -C ble.sh install PREFIX=~/.local
+
+- name: Source ble.sh
+  blockinfile:
+    path: ~/.bashrc
+    block: |
+      source ~/.local/share/blesh/ble.sh

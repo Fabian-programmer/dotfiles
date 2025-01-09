@@ -1,0 +1,6 @@
+- name: Setup WSL2 - Ubuntu 22.04 Workstation
+  hosts: localhost
+  connection: local
+  roles:
+    - dot
+    - packages

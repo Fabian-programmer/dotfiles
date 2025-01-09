@@ -1,0 +1,17 @@
+- name: Check if fzf is installed
+  shell: command -v fzf
+  register: fzf_exists
+  ignore_errors: yes
+
+- name: Install fzf
+  when: fzf_exists is failed
+  ansible.builtin.shell: |
+    git clone --depth 1 https://github.com/junegunn/fzf.git &&
+    ~/.fzf/install
+
+- name: Source fzf
+  blockinfile:
+    path: ~/.bashrc
+    block: |
+      [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+      export FZF_DEFAULT_COMMAND='fd --type f'

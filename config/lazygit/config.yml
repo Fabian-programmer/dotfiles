@@ -1,0 +1,10 @@
+git:
+  paging:
+    colorArg: never
+    pager: delta --color-only --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}"
+gui:
+  nerdFontsVersion: "3"
+os:
+  editPreset: 'nvim-remote'
+  edit: '[ -z "$NVIM" ] && nvim -- {{filename}} || nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":lua vim.defer_fn(function() vim.cmd(\"b {{filename}}\") end, 100)<CR>"'
+  editLine: '[ -z "$NVIM" ] && nvim +{{line}} -- {{filename}} || nvim --server "$NVIM" --remote-send "q" && nvim --server "$NVIM" --remote {{filename}} && nvim --server "$NVIM" --remote-send ":lua vim.defer_fn(function() vim.cmd(\"b {{filename}}\") vim.cmd(\":{{line}}<CR>\") end, 100)<CR>"'
