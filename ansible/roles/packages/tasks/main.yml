@@ -4,6 +4,7 @@
       - build-essential
       - xclip
       - python-is-python3
+      - feh
   become: true
 
 # remove very old nodejs version and install a new one with snap
