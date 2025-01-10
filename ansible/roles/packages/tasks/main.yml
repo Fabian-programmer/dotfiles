@@ -33,6 +33,7 @@
     name: 
       - ripgrep
       - fd-find
+      - git-delta 
 
 - include_tasks: lazygit.yml
 - include_tasks: fzf.yml
