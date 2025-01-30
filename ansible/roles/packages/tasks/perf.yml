@@ -1,0 +1,11 @@
+- name: Install packages with apt
+  apt:
+    name:
+      - libtraceevent-dev
+      - libelf-dev
+      - pkg-config
+      - binutils-dev
+      - libiberty-dev
+      - flex
+      - bison
+  become: true
