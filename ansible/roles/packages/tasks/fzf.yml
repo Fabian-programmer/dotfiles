@@ -6,7 +6,7 @@
 - name: Install fzf
   when: fzf_exists is failed
   ansible.builtin.shell: |
-    git clone --depth 1 https://github.com/junegunn/fzf.git &&
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf &&
     ~/.fzf/install
 
 - name: Source fzf
