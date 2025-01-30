@@ -5,6 +5,7 @@
       - xclip
       - python-is-python3
       - feh
+      - keepassxc
   become: true
 
 # remove very old nodejs version and install a new one with snap
