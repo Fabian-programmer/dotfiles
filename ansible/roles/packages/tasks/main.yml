@@ -3,6 +3,7 @@
     name:
       - build-essential
       - xclip
+      - unzip
       - python-is-python3
       - feh
       - keepassxc
