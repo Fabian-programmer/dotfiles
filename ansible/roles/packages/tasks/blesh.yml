@@ -1,7 +1,8 @@
 - name: Check if ble.sh is installed
   shell: command -v ble-update
   register: blesh_exists
-  ignore_errors: yes
+  failed_when: false
+  changed_when: false
 
 - name: Install ble.sh
   when: blesh_exists is failed
@@ -12,5 +13,6 @@
 - name: Source ble.sh
   blockinfile:
     path: ~/.bashrc
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - blesh"
     block: |
       source ~/.local/share/blesh/ble.sh

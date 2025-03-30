@@ -1,9 +1,12 @@
 - name: Install zoxide
   community.general.cargo:
     name: zoxide
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
 
 - name: Source zoxide
   blockinfile:
     path: ~/.bashrc
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - zoxide"
     block: |
       eval "$(zoxide init bash)"

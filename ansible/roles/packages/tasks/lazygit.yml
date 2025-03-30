@@ -1,0 +1,41 @@
+- name: Install LazyGit from GitHub
+  block:
+    - name: Get the latest LazyGit version
+      uri:
+        url: "https://api.github.com/repos/jesseduffield/lazygit/releases/latest"
+        return_content: yes
+      register: lazygit_release
+
+    - name: Extract LazyGit version number
+      set_fact:
+        lazygit_version: "{{ lazygit_release.content | regex_search('\"tag_name\": *\"v([0-9.]+)\"', '\\1') | first }}"
+
+    - name: Debug LazyGit version
+      debug:
+        msg: "Latest LazyGit version is {{ lazygit_version }}"
+
+    - name: Download LazyGit tarball
+      get_url:
+        url: "https://github.com/jesseduffield/lazygit/releases/download/v{{ lazygit_version }}/lazygit_{{ lazygit_version }}_Linux_x86_64.tar.gz"
+        dest: "/tmp/lazygit.tar.gz"
+        mode: '0644'
+
+    - name: Extract LazyGit binary
+      ansible.builtin.unarchive:
+        src: "/tmp/lazygit.tar.gz"
+        dest: "/tmp/"
+        remote_src: yes
+        extra_opts: [--wildcards, "lazygit"]
+
+    - name: Install LazyGit binary
+      command: install lazygit -D -t /usr/local/bin/
+      args:
+        chdir: "/tmp"
+        creates: "/usr/local/bin/lazygit"
+
+    - name: Cleanup downloaded files
+      file:
+        path: "/tmp/lazygit.tar.gz"
+        state: absent
+
+  tags: lazygit

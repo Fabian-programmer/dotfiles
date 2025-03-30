@@ -35,6 +35,8 @@
       - ripgrep
       - fd-find
       - git-delta 
+  environment:
+    PATH: "{{ ansible_env.HOME }}/.cargo/bin:{{ ansible_env.PATH }}"
 
 - include_tasks: lazygit.yml
 - include_tasks: fzf.yml
