@@ -5,6 +5,7 @@
   changed_when: false
 
 - name: Download rustup
+  when: ansible_facts['pkg_mgr'] == "apt"
   when: cargo_exists is failed
   get_url:
     url: https://sh.rustup.rs
@@ -15,6 +16,7 @@
     - rust
 
 - name: Install rust/cargo
+  when: ansible_facts['pkg_mgr'] == "apt"
   when: cargo_exists is failed
   shell: /tmp/sh.rustup.rs -y
   tags:

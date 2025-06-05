@@ -1,4 +1,5 @@
 - name: Install zoxide
+  when: ansible_facts['pkg_mgr'] == "apt"
   community.general.cargo:
     name: zoxide
   environment:

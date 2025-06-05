@@ -1,4 +1,5 @@
 - name: Install packages with apt
+  when: ansible_facts['pkg_mgr'] == "apt"
   apt:
     name:
       - libtraceevent-dev

@@ -5,6 +5,7 @@
   changed_when: false
 
 - name: Install ble.sh
+  when: ansible_facts['pkg_mgr'] == "apt"
   when: blesh_exists is failed
   ansible.builtin.shell: |
     git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git &&

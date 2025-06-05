@@ -5,7 +5,7 @@
 
 - name: Find .config files
   find:
-    paths: ~/dot/config/
+    paths: ~/.dotfiles/config/
     recurse: no
     file_type: any
     hidden: yes

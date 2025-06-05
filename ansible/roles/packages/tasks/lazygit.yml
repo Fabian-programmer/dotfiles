@@ -1,4 +1,5 @@
 - name: Install LazyGit from GitHub
+  when: ansible_facts['pkg_mgr'] == "apt"
   block:
     - name: Get the latest LazyGit version
       uri:

@@ -1,0 +1,19 @@
+- name: Setup Workstation
+  hosts: localhost
+  connection: local
+
+  vars_files:
+    - vars/ubuntu.yml
+    - vars/arch.yml
+
+  tasks:
+    - name: Detect OS
+      set_fact:
+        os_family: "{{ ansible_facts['os_family'] | lower }}"
+
+    - name: Include appropriate variables
+      include_vars: "vars/{{ os_family }}.yml"
+
+  roles:
+    - common
+    - packages

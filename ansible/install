@@ -6,8 +6,19 @@ function have {
   command -v "$1" &>/dev/null
 }
 
-# install ansible
-have ansible || (sudo apt-add-repository ppa:ansible/ansible && sudo apt update && sudo apt install ansible && ansible-galaxy collection install community.general)
+# Install Ansible if not installed
+if ! have ansible; then
+  if have apt; then
+    sudo apt-add-repository ppa:ansible/ansible
+    sudo apt update
+    sudo apt install ansible
+  elif have pacman; then
+    sudo pacman -Sy ansible
+  else
+    echo "Unsupported package manager"
+    exit 1
+  fi
+  ansible-galaxy collection install community.general
+fi
 
-# run ansible
-ansible-playbook -i hosts ./wsl2_ubuntu-22.04.yml
+ansible-playbook -i hosts main.yml

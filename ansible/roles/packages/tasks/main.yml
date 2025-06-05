@@ -1,4 +1,5 @@
 - name: Install packages with apt
+  when: ansible_facts['pkg_mgr'] == "apt"
   apt:
     name:
       - build-essential
@@ -11,6 +12,7 @@
 
 # remove very old nodejs version and install a new one with snap
 - name: Remove apt packages
+  when: ansible_facts['pkg_mgr'] == "apt"
   apt:
     name: nodejs 
     state: absent
@@ -18,6 +20,7 @@
 
 # snap has newer versions of the packages
 - name: Install packages with snap
+  when: ansible_facts['pkg_mgr'] == "apt"
   community.general.snap:
     name:
       - cmake
@@ -31,6 +34,7 @@
 
 # cargo has latest versions of the packages
 - name: Install packages with cargo
+  when: ansible_facts['pkg_mgr'] == "apt"
   community.general.cargo:
     name: 
       - ripgrep
